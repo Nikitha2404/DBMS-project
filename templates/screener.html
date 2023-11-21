@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>Screener</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <style>
+        td { padding: 5px; }
+        .bullish { background: green; color: white; }
+        .bearish { background: red; color: white; }
+    </style>
+</head>
+<body>
+    <div class="ui inverted segment">
+        <div class="ui inverted secondary menu ">
+            <div class="right menu">
+                <a href="/" class="item">
+                    Home
+                </a>
+                <a href="/market" class="item">
+                    Market
+                </a>
+                <a class="active item">
+                    Screener
+                </a>
+                <a href="/login" class="item">
+                    Login
+                </a>
+                <a href="/signup" class="item">
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </div>
+    <form>
+        <select name="pattern">
+            <option value="">-- Select a Pattern --</option>
+            {% for key in candlestick_patterns %}
+                <option value="{{ key }}" {% if pattern == key %}selected="selected"{% endif %}>{{ candlestick_patterns[key] }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Scan" />
+    </form>
+
+    <table>
+        <tr>
+            <th>symbol</th>
+            <th>company</th>
+            <th>signal</th>
+        </tr>
+        {% for stock in stocks %}
+            {% if stocks[stock][pattern] %}
+            <tr>
+                <td>
+                    {{ stock }}
+                </td>
+                <td>
+                    {{ stocks[stock]['company'] }}
+                </td>
+                <td class="{{ stocks[stock][pattern] }}">
+                    {{ stocks[stock][pattern]}}
+                </td>
+            <tr>
+                <td colspan="3">
+                    <img src="/static/{{ stock }}.png" />
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</body>
+</html>

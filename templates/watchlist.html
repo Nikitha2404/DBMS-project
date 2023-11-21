@@ -1,0 +1,132 @@
+<html>
+    <head>
+        <title>Watchlist</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    </head>
+    <body>
+        
+      <div class="ui inverted segment">
+          <div class="ui inverted secondary menu"><div class="left menu">
+            <a href="/login" class="item">
+              Logout
+            </a>
+            </div>
+          </div>
+      </div>
+      <div>
+          Watchlist
+          <script>
+              $(document).ready(function() 
+              {
+                  $("#add_stocks").click(function()
+                  {
+                    $('.ui.modal').modal('show');
+                  });
+                  $("#save").click(function()
+                  {
+                      var symbols=$("#symbols").val();
+                      var user = {{ user|safe }};
+                      console.log(symbols);
+            
+                      var stsymbol= symbols.split("\n");
+                      for( var i=0;i< stsymbol.length;i++)
+                      {
+                          console.log(stsymbol[i]);
+                          $.ajax({
+                            url:'/login/watchlist/?name='+ user,
+                            type:"POST",
+                            contentType: 'application/json',
+                            data:JSON.stringify({"symbol": stsymbol[i]}),
+                            dataType:'json',
+                            success:function(data){
+                              window.location.replace("/login/watchlist/?name="+user)
+                            },
+                            error:function(xhr,status,error){
+                            alert("ENTER VALID SYMBOLS");
+                            }
+                          })
+                      }  
+            
+                      $('.ui.modal').modal('hide');
+                    })
+              });
+            </script>
+            <div>
+              <button id ="add_stocks" class="ui button">
+                Add Stocks
+              </button>
+            </div>
+            <table class="ui celled table">
+              <thead>
+                <tr>
+                <th> Stock Symbol</th>
+                <th>Open</th>  
+                <th>High</th>
+                <th>Low</th>
+                <th>Close</th>
+                <th>Volume</th>
+                <th>       </th>
+                </tr></thead>
+                <tbody>
+                  {% for i in stocks %}
+                  <tr>
+                    <td id="symbol" data-i="{{ i }}"><a href="/market/{{ i }}" >{{ i }}</a></td>
+                    <td>{{ stocks[i]['open'] }}</td> 
+                    <td>{{ stocks[i]['high'] }}</td>
+                    <td>{{ stocks[i]['low'] }}</td>
+                    <td>{{ stocks[i]['close'] }}</td>
+                    <td>{{ stocks[i]['vol'] }}</td>
+                    <td> <button class="delete ui button">Delete</button> </td>
+                    
+                  </tr>
+                  
+                  {% endfor %}
+                  
+                </tbody>
+            </table>
+            <script>
+              $(".delete").click(function(){
+                var d=$("#symbol").data("i");
+                console.log(d);
+                var u={{ user|safe }};
+                $.ajax({
+                  type:"DELETE",
+                  url:"/login/watchlist/?name="+u,
+                  contentType:"application/json",
+                  data:JSON.stringify({"symbol":d}),
+                  dataType:"json",
+                  success:function(data){
+                    alert("RECORD DELETED");
+                    window.location.replace("/login/watchlist/?name="+u);
+                    }
+                })
+              });
+            </script>
+            <div class="ui modal">
+              <i class="close icon"></i>
+              <div class="header">
+                Add Stocks
+              </div>
+              <div class="content">
+                  <div class="ui form">
+                      <div class="field">
+                        <label>Symbols</label>
+                        <textarea id="symbols"></textarea>
+                      </div>
+                    </div>
+              </div>
+              <div class="actions">
+                <div id="save" class="ui positive right labeled icon button">
+                  Add Symbols
+                  <i class="plus icon"></i>
+                </div>
+              </div>
+            </div>
+      </div>
+      
+  </div>
+        
+    </body>
+</html>

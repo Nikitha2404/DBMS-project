@@ -1,0 +1,110 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>  
+      <style>
+        .wide{
+          column-width: 1.5px;
+        }
+      </style>    
+    </head>
+    
+        <body>
+        <div class="ui inverted segment">
+            <div class="ui inverted secondary menu ">
+                <div class="right menu">
+                    <a href="/" class="item">
+                        Home
+                    </a>
+                    <a href="/market" class="active item">
+                        Market
+                    </a>
+                    <a href="/screener" class="item">
+                        Screener
+                    </a>
+                    <a href="/login" class="item">
+                        Login
+                    </a>
+                    <a href="/signup" class="item">
+                        Sign Up
+                    </a>
+                </div>
+            </div>
+          </div>
+          
+          <div class="top">
+            <div class="page centre ui label">
+                {{ stock2["name"] }}
+                <div class="detail">{{  stock2["symbol"] }}</div>
+              </div>
+
+            <div class="ui horizontal divider"></div>
+            <table class="ui five column table">
+                <thead>
+                  <tr><th>Open</th>
+                  <th>High</th>
+                  <th>Low</th>
+                  <th>Close</th>
+                  <th>Volume</th>
+                </tr></thead>
+                <tbody>
+                  <tr>
+                    <td>{{ stock3["open"] }}</td>
+                    <td>{{ stock3["high"] }}</td>
+                    <td>{{ stock3["low"] }}</td>
+                    <td>{{ stock3["close"] }}</td>
+                    <td>{{ stock3["vol"] }}</td>
+                  </tr>
+                  
+              </table>
+
+          </div>
+          <div class="ui horizontal divider"></div>
+          <div class="bottom">
+              <div class="ui segment">
+                <div class="ui two column relaxed grid">
+                  <div class="column1">
+                    <table class="ui definition table">
+                        <tbody>
+                          <tr>
+                            <td class="two wide column">Security VaR</td>
+                            <td>{{ stock1["secvar"] }}</td>
+                          </tr>
+                          <tr>
+                            <td>VaR Margin</td>
+                            <td>{{ stock1["varmargin"] }}</td>
+                          </tr>
+                          <tr>
+                            <td>52 Week High</td>
+                            <td>{{ stock1["high52"] }}</td>
+                          </tr>
+                          <tr>
+                            <td>52 Week Low</td>
+                            <td>{{ stock1["low52"] }}</td>
+                          </tr>
+                          <tr>
+                            <td >% Change</td>
+                            <td>{{ stock1["change1"] }}</td>
+                          </tr>
+                          <tr>
+                            <td>Change</td>
+                            <td>{{ stock1["change2"] }}</td>
+                          </tr>
+                          <tr>
+                            <td>Applicable Margin Rate</td>
+                            <td>{{ stock1["amr"] }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                  <div class="column">
+                    <td>
+                        <img src="/static/{{ stock2['symbol'] }}.png"/>
+                    </td>
+                  </div>
+                </div>
+           </div>
+            
+    </body>
+</html>

@@ -1,0 +1,1 @@
+mod.ohlcv_class.date==((dt.datetime.today()-dt.timedelta(days=2)).strftime("%Y-%m-%d"))

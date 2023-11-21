@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Stock Market</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+            <link rel="stylesheet" href="{{ url_for('static',path='style.css') }}">
+            <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>    
+            <script>
+            $(document).ready(function() {
+                $("#save").click(function()
+                {
+                var s=$("#input").val();
+                {
+                  $.ajax({
+                  url:'/',
+                  type:"POST",
+                  contentType:'application/json',
+                  data:JSON.stringify({"st_name":s}),
+                  datatype:'json',
+                  success:function(data){
+                    window.location.replace("/market/"+s);
+                    },
+                  error:function(xhr,status,error){
+                    alert("ENTER CORRECT SYMBOL!(or ENTER <SYMBOL>.NS)")
+                  }  
+                
+                  }) 
+                 
+                  }
+                })
+               });
+                </script> 
+            <style>
+                button {
+                    padding-top: -25 px;
+                }
+            </style>
+
+    </head>
+    
+        <body>
+        <div class="ui inverted segment">
+            <div class="ui inverted secondary menu ">
+                <div class="right menu">
+                    <a href="{{'/'}}" class="active item">
+                        Home
+                    </a>
+                    <a href="{{'market'}}" class="item">
+                        Market
+                    </a>
+                    <a href="{{'screener'}}" class="item">
+                        Screener
+                    </a>
+                    <a href="/login" class="item">
+                        Login
+                    </a>
+                    <a href="/signup" class="item">
+                        Sign Up
+                    </a>
+                </div>
+            </div>
+          </div>
+          <div class="Heading">
+            STOCK MARKET ANALYSER
+            </div>
+          <h3>
+            <div class="ui search centered">
+                <div class="ui icon input">
+                        <input id="input" class="prompt" type="text" placeholder="Enter Stock...">
+                    </div>
+                <div class="results"></div>
+              </div>
+              <button id="save" class="ui button">Search</button>
+            
+          </h3>
+          
+          
+    </body>
+</html>

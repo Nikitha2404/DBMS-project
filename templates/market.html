@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Market</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    </head>
+    <body>
+        <div class="ui inverted segment">
+            <div class="ui inverted secondary menu"><div class="right menu">
+              <a class="item" href="/">
+                Home
+              </a>
+              <a class="active item">
+                Market
+              </a>
+              <a class="item" href="{{ 'screener' }}">
+                Screener
+              </a>
+              <a class="item" href="{{ 'login' }}">
+                Login
+              </a>
+              <a class="item" href="{{ 'signup' }}">
+                Sign Up
+              </a></div>
+            </div>
+        </div>
+        <table class="ui celled table">
+          <thead>
+            <tr><th>Stock Name</th>
+              <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
+          </tr></thead>
+          <tbody> 
+            {% for i in stocks %}
+            <tr>
+              <td><a href="market/{{ i.symbol }}">{{ i.symbol }}</a></td>
+              <td>{{ i.open }}</td>
+              <td >{{ i.high }}</td>
+              <td >{{ i.low }}</td>
+              <td>{{ i.close }}</td>
+              <td>{{ i.vol }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </body>
+</html>

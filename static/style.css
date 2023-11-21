@@ -1,0 +1,21 @@
+body {
+    background-image: url('2.webp');
+    background-size: cover ;
+}
+.heading{
+    text-align: center;
+    padding-top: 6.50em;
+    font-size: 50px;
+    font-weight:bolder;
+    color:aliceblue;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+
+}
+h3{
+    height:20em;
+    display: grid;
+    place-items: center;
+}
+.icon{
+    width: 1000px;
+}

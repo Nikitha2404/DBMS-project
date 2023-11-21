@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Sign up</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <link rel="stylesheet" href="{{ url_for('static',path='style.css') }}">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <style>
+            .signup{
+                padding:10% 40%; 
+            }
+        </style>
+        <script>
+            $(document).ready(function() {
+                // initialize the form
+                $("#save").click(function(){
+                    var e=$("#email").val();
+                    var u=$("#username").val();
+                    var p=$("#password").val();
+                    if(e==""||u==""||p==""){
+                        alert("Please enter valid details");
+                    }
+                    else{
+                        $.ajax({
+                            type: "POST",
+                            url: "/signup",
+                            contentType:"application/json",
+                            data:JSON.stringify({"email":e,"username":u,"password":p}),
+                            dataType: "json",
+                            error:function(xhr,status,error){
+                                alert("username already exists");
+                                window.location.replace("/signup");
+                            }
+                        })
+                        location.href = "/login";
+
+                    }
+                })
+            });
+        </script>
+    </head>
+    <body>
+        <div class="ui inverted segment">
+            <div class="ui inverted secondary menu"><div class="right menu">
+              <a class="item" href="{{ '/' }}">
+                Home
+              </a>
+              <a class="item" href="/market">
+                Market
+              </a>
+              <a class="item" href="/screener">
+                Screener
+              </a>
+              <a class="item" href="{{ 'login' }}">
+                Login
+              </a>
+              <a class="active item">
+                Sign Up
+              </a></div>
+            </div>
+        </div>
+        <div class="signup">
+            <div class="column">
+                <h2 class="ui red image header">
+                <div class="content">
+                    Create new account
+                </div>
+                </h2>
+                <form class="ui large form">
+                <div class="ui stacked segment">
+                    <div class="field">
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
+                        <input id="email" type="text" name="email" placeholder="Email">
+                    </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input id="username" type="text" name="username" placeholder="Username">
+                        </div>
+                        </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input id="password" type="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div id="save" class="ui fluid large black submit button">
+                        Sign Up</div>
+                </div>
+            
+                <div class="ui error message"></div>
+            
+                </form>
+            
+                <div class="ui message">
+                Already have an account? <a href="{{ 'login' }}">Login</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
